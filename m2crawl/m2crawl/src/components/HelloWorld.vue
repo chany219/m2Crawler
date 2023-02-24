@@ -260,7 +260,7 @@ export default {
 			"https://neovision.godohosting.com/2019/WATCH/FERRAGAMO",
 			"https://img.fashionplus.co.kr",
 			"https://lofamscm.s3.ap-northeast-2.amazonaws.com/common/detail_title4.png?v=20190605",
-		],
+		], //빈번하게 나오는 접근 불가능한 주소를 미리 입력해두면 미변환 데이터를 특정짓기더 쉬워집니다.
 		headers: [
 			{ text: "PRD CD", value: "prdCd" },
 			{ text: "Count", value: "count" },
@@ -463,73 +463,6 @@ export default {
 				this.noAccessCount++;
 			}
 		},
-
-		// async downloadExcel(resp, prdCd) {
-		// 	if (resp.data.resultCode == "0000") {
-		// 		const prdImgDescd = resp.data.prdImgDescd;
-		// 		//console.log(prdImgDescd);
-		// 		const $ = cheerio.load(prdImgDescd);
-		// 		$("picture").remove();
-		// 		const imgList = $("img");
-		// 		if (imgList.length != 0) {
-		// 			console.log(imgList);
-		// 			// console.log("len " + imgList.length);
-		// 			var urlList = "";
-		// 			var gifFlag = false;
-		// 			for (var index = 0; index < imgList.length; index++) {
-		// 				urlList = urlList + imgList[index].attribs.src + "\n\n";
-		// 				if (
-		// 					null != imgList[index].attribs.src &&
-		// 					imgList[index].attribs.src.indexOf(".gif") != -1
-		// 				) {
-		// 					gifFlag = true;
-		// 				}
-		// 			}
-		// 			this.results.push({
-		// 				prdCd: prdCd,
-		// 				count: imgList.length,
-		// 				urls: urlList,
-		// 				gif: gifFlag == true ? "O" : "X",
-		// 			});
-
-		// 			return {
-		// 				prdCd: prdCd,
-		// 				count: imgList.length,
-		// 				urls: urlList,
-		// 				gif: gifFlag == true ? "O" : "X",
-		// 			};
-		// 		}
-		// 	}
-		// },
-
-		// crawl() {
-		// 	this.results = [];
-		// 	//this.overlay = true;
-		// 	const GSSHOP_URL = "https://asm.gsshop.com/product/api/desc";
-		// 	const gsshop = this.create(GSSHOP_URL);
-		// 	const loop = async (list) => {
-		// 		console.log("시작");
-		// 		const promises = list.map(async (data) => {
-		// 			return await this.getResult(gsshop, data);
-		// 		});
-		// 		const results = await Promise.all(promises);
-		// 		console.log(results);
-		// 		results.forEach((data) => console.log(data));
-		// 		console.log("끝");
-		// 	};
-		// 	const prdList = Array.from(
-		// 		{ length: this.to - this.from + 1 },
-		// 		(v, i) => i + Number(this.from)
-		// 	);
-		// 	console.log(prdList);
-		// 	loop(prdList);
-		// 	console.log(this.results);
-		// 	1026747713
-		// 	1003445047
-		// 	Promise.all()(
-		// 	for (this.step = this.from; this.step <= this.to; this.step++) {}
-		// 	this.overlay = false;
-		// },
 
 		tagFilter(oriText) {
 			var newText = oriText.replace(/(<([^>]+)>)/gi, "");
