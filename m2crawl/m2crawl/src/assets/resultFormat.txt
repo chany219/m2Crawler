@@ -1,0 +1,54 @@
+<v-row v-if="results.length > 0">
+				<p>
+					{{ Number(to) - Number(from) + 1 }}개의 상품 중
+					{{ results.length }}개 상품이 미변환 되었습니다 (
+					{{
+						(
+							(results.length / (Number(to) - Number(from) + 1)) *
+							100
+						).toFixed(2)
+					}}%) (이미지 자체에 접근하지 못하여 (엑스박스,서버에러 등)
+					변환이 이뤄지지 않은 케이스도 포함)
+				</p>
+			</v-row>
+			<v-row v-if="results.length > 0">
+				<p>
+					{{ noAccessCount }}개 상품의 기술서는 접근하지 못하였습니다.
+					(이미지 기술서 에러 ex: 상품코드로 조회 결과 상품이 존재하지
+					않음)
+				</p>
+			</v-row>
+			<v-row v-if="results.length > 0">
+				<p>
+					{{ goodResultCount }}개 상품의 기술서는 응답이 잘
+					이뤄졌습니다. (상품 기술서 조회 API로 부터 응답을 받음)
+				</p>
+			</v-row>
+			<v-row v-if="results.length > 0">
+				<p>
+					{{ wrapperCount }}개의 상품은 M2로부터 이미지 변환 태그를
+					응답 받았습니다. (상품 기술서가 M2의 prddesc_wrapper로
+					변환되어 응답됨)
+				</p>
+			</v-row>
+			<v-row>
+				<p v-if="results.length > 0">
+					총 미변환 이미지의 수 (Data-Src):
+					{{ totalDataSrcCount }}
+				</p></v-row
+			>
+			<v-row>
+				<p v-if="results.length > 0">
+					총 미변환 이미지의 수 (Src): {{ totalSrcCount }}
+				</p></v-row
+			>
+			<v-row>
+				<p v-if="results.length > 0">
+					총 미변환 GIF의 수 : {{ totalGifCount }}
+				</p></v-row
+			>
+			<v-row>
+				<p v-if="results.length > 0">
+					변환된 video의 수 : {{ videoCount }}
+				</p></v-row
+			>
