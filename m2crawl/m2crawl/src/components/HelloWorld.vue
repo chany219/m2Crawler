@@ -208,7 +208,10 @@
 				<v-card-title>{{ editedItem.prdCd }}</v-card-title>
 				<v-divider></v-divider>
 				<v-html> {{ editedItem.count }}</v-html>
-				<v-html> {{ editedItem.urls }}</v-html>
+				<v-html v-if="editedItem.urls != undefined">
+					<div v-for="(url, index) in clickedRowUrl" :key="index">
+						<img :src="url" /></div
+				></v-html>
 
 				<v-divider></v-divider>
 				<v-card-actions>
@@ -267,6 +270,7 @@ export default {
 			{ text: "GIF", value: "gif" },
 			{ text: "URL", value: "urls" },
 		],
+		clickedRowUrl: [],
 	}),
 	props: {},
 	computed: {
@@ -293,13 +297,11 @@ export default {
 			return instance;
 		},
 
-		splitString(urls) {
-			return urls.split("\n");
-		},
-
 		handleClick(row) {
 			console.log(row);
 			this.editedItem = row;
+			console.log(row.urls);
+			this.clickedRowUrl = this.splitString(row.urls);
 			this.modal = true;
 		},
 
@@ -310,6 +312,16 @@ export default {
 			오는대로 하나씩 리턴 받은 결과를 파싱한다
 			리스트 오는대로 result 넣어준다
 			*/
+
+			if (
+				this.from != undefined &&
+				Number(this.to) > Number(this.from) + 50
+			) {
+				alert(
+					"스테이지 서버 보호를 위해 상품 조회수를 50개로 제한 합니다."
+				);
+				this.to = Number(this.from) + 50;
+			}
 
 			const GSSHOP_URL = "https://asm.gsshop.com/product/api/desc/";
 			const gsshop = this.create(GSSHOP_URL);
@@ -351,7 +363,7 @@ export default {
 				this.timeSpend = (endTime - startTime) / 1000;
 
 				console.log(
-					"이미지 변환율: " +
+					"이미지 미변환율: " +
 						((this.totalDataSrcCount + this.totalSrcCount) /
 							(this.pictureCount +
 								this.totalDataSrcCount +
@@ -361,8 +373,7 @@ export default {
 				);
 				console.log(
 					"미변환 이미지" +
-						this.totalDataSrcCount +
-						this.totalSrcCount +
+						Number(this.totalDataSrcCount + this.totalSrcCount) +
 						"/" +
 						(this.pictureCount +
 							this.totalDataSrcCount +
@@ -428,7 +439,6 @@ export default {
 								count++;
 							}
 						} else {
-							console.log("#$$$####");
 							console.log(imgList[index].attribs);
 						}
 
@@ -497,6 +507,13 @@ export default {
 			if (count > 20) return "red";
 			else if (count > 5) return "orange";
 			else return "green";
+		},
+		splitString(urls) {
+			if (urls != undefined) {
+				return urls.split("\n");
+			} else {
+				return [];
+			}
 		},
 	},
 };
