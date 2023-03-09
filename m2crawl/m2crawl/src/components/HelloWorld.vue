@@ -361,6 +361,9 @@ export default {
 				this.parsing(data, prdCd);
 				this.loading = false;
 				this.timeSpend = (endTime - startTime) / 1000;
+				if (this.results.length == 0) {
+					alert("조회 결과 미변환된 이미지가 없습니다.");
+				}
 
 				console.log(
 					"이미지 미변환율: " +
